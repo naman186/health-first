@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&family=Manrope:wght@200..800&display=swap');
+@import "tailwindcss";
+
+:root{
+    font-family: "manrope", sans-serif;
+    --second-gray-color: #F2F2F5;
+    --button-color: #B2D1E5;
+}
+body {
+  font-family: 'Manrope', sans-serif;
+}
+details{
+  margin: 1rem;
+}
+
+.dr-text{
+  
+}
+
+
+@media (max-width: 640px) {
+  h4{
+    font-size: x-large;
+  }
+}
