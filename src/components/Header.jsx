@@ -2,8 +2,42 @@ import React from 'react'
 import logo from "../assets/logo.svg"
 import pfp from "../assets/pfp.svg"
 import noti from "../assets/notification.svg"
+import Logoutbtn from './Logoutbtn'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+
+
+
 
 function Header() {
+
+    const dispatch = useDispatch();
+    const authStatus = useSelector((state) => state?.auth?.status);
+    
+    
+    const navItems = [
+        {   name: 'Home', 
+            path: '/',
+            active: true,
+        },
+        { name: 'Appointments',
+         path: '/BookAppointments',
+         active: authStatus,
+        },
+        { name: 'Medications',
+         path: '/medications',
+         active: authStatus,
+        },
+        { name: 'Notifications',
+         path: '/notifications',
+         active: authStatus,
+        },
+        { name: 'Login',
+         path: '/login',
+         active: !authStatus,
+        },
+    ];
+
   return (
     <>
     <div className="section">
@@ -19,20 +53,22 @@ function Header() {
             <div className="top-r flex gap-8 ">
                 <ul className="flex items-center gap-8 font-semibold text-sm">
                     <div className="hidden sm:flex items-center gap-8">
-                    <li>Home</li>
-                    <li>Appointments</li>
-                    <li>Medications</li>
-                    <li>Messages</li>
+                    {navItems.map((item, index) => (
+                            item.active ?(<li key={index}>
+                                {item.name}
+                            </li>
+                        ) : null ))}</div>
+                    </ul>
+                {authStatus && (
+                    <div className="flex items-center gap-4">
+                        <img src={pfp} alt="Profile" className="w-8 h-8 rounded-full" />
+                        <img src={noti} alt="Notifications" className="w-6 h-6" />
+                        <Logoutbtn />
                     </div>
-                    
-                    <div className="flex items-center gap-5 sm:gap-8">
-                    <li><img src={noti} alt="" className="h-8" /></li>
-                    <li><img src={pfp} alt="" className="h-8"/></li>
-                    </div>
-                </ul>
+                )}
+                </div>
+
             </div>
-            
-        </div>
         <hr />
     </div>
     </>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 function Footer() {
   return (
@@ -45,7 +46,7 @@ function Footer() {
             </details>
             <hr/>
             <div className="copyright p-4 text-xs">
-                <p>© 2025 PharmEasy. All Rights Reserved</p>
+                <p>© 2025 HealthFirst. All Rights Reserved</p>
             </div>
         </div>
       </section>
