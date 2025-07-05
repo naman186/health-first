@@ -1,8 +1,10 @@
 import React from 'react'
-import dr from "../assets/dr-img.svg"
-import clinic1 from "../assets/clinic-1.png"
-import clinic2 from "../assets/clinic-2.png"
-import clinic3 from "../assets/clinic-3.png"
+import dr from "/assets/dr-img.svg"
+import clinic1 from "/assets/clinic-1.png"
+import clinic2 from "/assets/clinic-2.png"
+import clinic3 from "/assets/clinic-3.png"
+
+console.log("home page is loaded");
 
 function Home() {
   return (

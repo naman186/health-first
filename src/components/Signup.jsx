@@ -8,24 +8,24 @@ import { useNavigate } from 'react-router-dom'
 import logo from "/assets/logo.svg"
 
 
-function Login() {
+function Signup() {
   const [error, setError] = useState('')
   const { register, handleSubmit } = useForm()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const login = async (data) => {
+  const create = async (data) => {
     setError('') // Reset pehle wala error message
     try {
-      const session  = await authService.login(data)
-      if(session){
+      const userData  = await authService.createAccount(data)
+      if(userData){
         const userData = await authService.getCurrentUser()
         if(userData){
-          dispatch(authLogin(userData))
+          dispatch(login(userData))
           navigate('/')
+        }
       }
-    } }
-    catch (err) {
+    } catch (err) {
       setError(err.message)
     }
   }
@@ -60,42 +60,11 @@ function Login() {
         <div className="w-full max-w-md space-y-6">
           <h2 className="text-3xl font-semibold text-gray-900">Sign in</h2>
           <p className="text-sm">
-            New user?{" "}
-            <Link to="/Signup" className="text-blue-600 hover:underline">
-              Create an account
+            Already have an account?{" "}
+            <Link to="/login" className="text-blue-600 hover:underline">
+              Sign in
             </Link>
           </p>
-
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-          <form onSubmit={handleSubmit(login)}>
-            <div className="space-y-4">
-              <label className="block text-sm font-medium">Email address</label>
-              <input
-                type="email"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-300"
-                placeholder="example@email.com"
-                {...register('email', { required: true, validate: { matchPattern: (value) =>
-                   /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value) || 'Invalid email format' } })}
-
-            />
-            <label className="block text-sm font-medium">Password</label>
-            <input
-              type="password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-300"
-              placeholder="Enter Password"
-              {...register('password', { required: true })}
-            />
-            <button className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition">
-              Sign in
-            </button>
-          </div>
-          </form>
-
-          <div className="flex items-center gap-2 text-gray-400">
-            <hr className="flex-grow border-gray-300" />
-            <span className="text-sm">Or</span>
-            <hr className="flex-grow border-gray-300" />
-          </div>
 
           <div className="space-y-3">
             <button className="w-full flex items-center gap-3 border px-4 py-2 rounded-md hover:bg-gray-50">
@@ -121,6 +90,43 @@ function Login() {
             </button>
           </div>
 
+
+          <div className="flex items-center gap-2 text-gray-400">
+            <hr className="flex-grow border-gray-300" />
+            <span className="text-sm">Or</span>
+            <hr className="flex-grow border-gray-300" />
+          </div>
+
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+
+          <form onSubmit={handleSubmit(create)}>
+          <div className="space-y-4">
+
+            <label className="block text-sm font-medium">Full Name</label>
+            <input
+              type="text"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-300"
+              placeholder="example@email.com"
+            />
+
+            <label className="block text-sm font-medium">Email address</label>
+            <input
+              type="email"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-300"
+              placeholder="example@email.com"
+            />
+            <label className="block text-sm font-medium">Password</label>
+            <input
+              type="password"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-300"
+              placeholder="Enter Password"
+            />
+            <button className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition">
+              Sign up with Email
+            </button>
+          </div>
+          </form>
+
           <div className="text-sm text-blue-600 hover:underline">
             <Link to="#">Get help signing in</Link>
           </div>
@@ -131,4 +137,4 @@ function Login() {
   );
 }
 
-export default Login
+export default Signup

@@ -1,6 +1,6 @@
 import React from "react";
-import arrow from "../assets/arrow.svg";
-import pfp from "../assets/pfp.svg";
+import arrow from "/assets/arrow.svg";
+import pfp from "/assets/pfp.svg";
 
 function BookApointment() {
   return (
