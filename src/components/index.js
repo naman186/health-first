@@ -6,11 +6,13 @@ import { Outlet } from "react-router";
 import Logoutbtn from "./Logoutbtn";
 import InputBox from "./InputBox";
 import Button from "./Button";
+import AuthLayout from "./AuthLayout";
 
 
 export {
   Header,
   Logoutbtn,
+  AuthLayout,
   Home,
   InputBox,
   Button,

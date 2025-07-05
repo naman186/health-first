@@ -7,6 +7,7 @@ import authService from './appwrite/auth'
 import { useDispatch } from 'react-redux'
 import { login, logout } from './store/authslice'
 import { Outlet } from 'react-router'
+import Login from './components/Login'
 
 function App() {
 
@@ -25,14 +26,13 @@ function App() {
       }).finally(() => setLoading(false));
       
   }, [])
-  return !loading ? (<>
-  <Header/>
-  <main>
-   {/* <Outlet/> */}
-  </main>
-  <Home/>
-  <Footer/>
-  </>): null;
+  return (
+    <>
+    <Header/>
+    <Outlet/>
+    <Footer/>
+    </>
+  )
 }
 
 export default App
