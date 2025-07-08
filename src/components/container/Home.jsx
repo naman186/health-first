@@ -24,7 +24,7 @@ function Home() {
                     className=' w-full ml-2 outline-none'
                 />
             </div>
-            <button className=" text-black font-semibold px-6 py-2 rounded-lg " style={{ backgroundColor: "var(--button-color)" }}>
+            <button className=" text-black font-semibold px-6 py-2 rounded-lg bg-blue-500" style={{ backgroundColor: "var(--button-color)" }}>
               Book an appointment
             </button>
             <h4 className="heading text-3xl font-semibold">Your upcoming appointments</h4>

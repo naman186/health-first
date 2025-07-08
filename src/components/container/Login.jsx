@@ -1,11 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
-import { login as authLogin } from '../store/authslice'
+import { login as authLogin } from '../../store/authslice'
 import { set, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import logo from "/assets/logo.svg"
+import authService from '../../appwrite/auth'
 
 
 function Login() {

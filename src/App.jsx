@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import Header from './components/Header'
-import Footer from './components/Footer'
+import Header from './components/container/Header'
+import Footer from './components/container/Footer'
 import authService from './appwrite/auth'
 import { useDispatch } from 'react-redux'
 import { login, logout } from './store/authslice'

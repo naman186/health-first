@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import store from './store/store.js'
 import { createBrowserRouter } from 'react-router-dom'
 import { RouterProvider } from 'react-router-dom'
-import {App, Home, Login, Signup, BookApointment} from './components/index.js'
+import {App, Home, Login, Signup, BookAppointment, SearchPage, Profile, DoctorHome} from './components/index.js'
 import AuthLayout from './components/AuthLayout.jsx'
 
 
@@ -36,13 +36,37 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/BookApointment',
+        path: '/BookAppointment',
         element: (
-          <AuthLayout authentication={false}>
-            <BookApointment />
+          <AuthLayout authentication={true}>
+            <BookAppointment />
           </AuthLayout>
         ),
       },
+      {
+        path:"/Search",
+        element: (
+          <AuthLayout authentication={true}>
+            <SearchPage/>
+          </AuthLayout>
+        )
+      },
+      {
+        path:"/UserProfile",
+        element: (
+          <AuthLayout authentication={true}>
+            <Profile/>
+          </AuthLayout>
+        )
+      },
+      {
+        path:"/doctorhome",
+        element:(
+          <AuthLayout authentication={true}>
+            <DoctorHome/>
+          </AuthLayout>
+        )
+      }
     ]
   }
 ])

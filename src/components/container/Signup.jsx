@@ -1,11 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
-import { login as authLogin } from '../store/authslice'
+import { login as authLogin } from '../../store/authslice'
 import { set, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import logo from "/assets/logo.svg"
+import authService from '../../appwrite/auth'
 
 
 function Signup() {
@@ -14,14 +15,14 @@ function Signup() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const create = async (data) => {
+  const create = async (data) => { //the data here is which was taken by reacthookform
     setError('') // Reset pehle wala error message
     try {
-      const userData  = await authService.createAccount(data)
+      const userData  = await authService.createAccount(data) 
       if(userData){
         const userData = await authService.getCurrentUser()
         if(userData){
-          dispatch(login(userData))
+          dispatch(authLogin(userData))
           navigate('/')
         }
       }
@@ -106,7 +107,8 @@ function Signup() {
             <input
               type="text"
               className="w-full px-4 py-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-300"
-              placeholder="example@email.com"
+              placeholder="Your Name"
+              {...register('name', {required:true})}
             />
 
             <label className="block text-sm font-medium">Email address</label>
@@ -114,12 +116,15 @@ function Signup() {
               type="email"
               className="w-full px-4 py-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-300"
               placeholder="example@email.com"
+              {...register('email', {required:true, validate: {matchPattern: 
+                (value) => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value) || "Invalid e-mail, Please re-enter correct email"}})}
             />
             <label className="block text-sm font-medium">Password</label>
             <input
               type="password"
               className="w-full px-4 py-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-300"
               placeholder="Enter Password"
+              {...register('password', {required: true})}
             />
             <button className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition">
               Sign up with Email
