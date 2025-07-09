@@ -38,7 +38,7 @@ const router = createBrowserRouter([
       {
         path: '/BookAppointment',
         element: (
-          <AuthLayout authentication={true}>
+          <AuthLayout authentication={false}>
             <BookAppointment />
           </AuthLayout>
         ),
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
       {
         path:"/Search",
         element: (
-          <AuthLayout authentication={true}>
+          <AuthLayout authentication={false}>
             <SearchPage/>
           </AuthLayout>
         )
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
       {
         path:"/UserProfile",
         element: (
-          <AuthLayout authentication={true}>
+          <AuthLayout authentication={false}>
             <Profile/>
           </AuthLayout>
         )
@@ -62,7 +62,7 @@ const router = createBrowserRouter([
       {
         path:"/doctorhome",
         element:(
-          <AuthLayout authentication={true}>
+          <AuthLayout authentication={false}>
             <DoctorHome/>
           </AuthLayout>
         )

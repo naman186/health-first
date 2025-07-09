@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { login as authLogin } from '../../store/authslice'
+import Inputx from "../input"
 import { set, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -11,14 +12,22 @@ import authService from '../../appwrite/auth'
 
 function Signup() {
   const [error, setError] = useState('')
-  const { register, handleSubmit } = useForm()
+  const {register,handleSubmit, watch, formState: { errors },} = useForm();
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const role = watch("role");
 
   const create = async (data) => { //the data here is which was taken by reacthookform
     setError('') // Reset pehle wala error message
     try {
-      const userData  = await authService.createAccount(data) 
+      const userData  = await authService.createAccount({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        role: data.role,
+        specialization: data.specialization || "",
+        fees: data.fees || "",
+      })
       if(userData){
         const userData = await authService.getCurrentUser()
         if(userData){
@@ -59,7 +68,7 @@ function Signup() {
       {/* Right Side (Form) */}
       <div className="w-full md:w-1/2 flex justify-center items-center px-6 py-12 bg-white">
         <div className="w-full max-w-md space-y-6">
-          <h2 className="text-3xl font-semibold text-gray-900">Sign in</h2>
+          <h2 className="text-3xl font-semibold text-gray-900">Sign Up</h2>
           <p className="text-sm">
             Already have an account?{" "}
             <Link to="/login" className="text-blue-600 hover:underline">
@@ -104,31 +113,71 @@ function Signup() {
           <div className="space-y-4">
 
             <label className="block text-sm font-medium">Full Name</label>
-            <input
+            <Inputx
               type="text"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-300"
               placeholder="Your Name"
               {...register('name', {required:true})}
+              error ={errors.name}
             />
 
             <label className="block text-sm font-medium">Email address</label>
-            <input
+            <Inputx
               type="email"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-300"
               placeholder="example@email.com"
               {...register('email', {required:true, validate: {matchPattern: 
                 (value) => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value) || "Invalid e-mail, Please re-enter correct email"}})}
+              error ={errors.email}
             />
             <label className="block text-sm font-medium">Password</label>
-            <input
+            <Inputx
               type="password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-blue-300"
               placeholder="Enter Password"
               {...register('password', {required: true})}
+              error ={errors.password}
             />
+
+            <div>
+          <label className="block text-sm mb-1">Sign up as</label>
+          <select
+            {...register("role", { required: "Please select a role" })}
+            className="input w-full px-4 py-2 border border-gray-300 rounded-md"
+          >
+            <option value="">Select role</option>
+            <option value="user">Patient</option>
+            <option value="doctor">Doctor</option>
+          </select>
+          {errors.role && (
+            <p className="text-red-500 text-sm">{errors.role.message}</p>
+          )}
+        </div>
+
+        {/* Conditional fields for doctors */}
+        {role === "doctor" && (
+          <>
+            <Inputx
+              label="Specialization"
+              {...register("specialization", {
+                required: "Specialization is required",
+              })}
+              error={errors.specialization}
+            />
+
+            <Inputx
+              label="Consultation Fees"
+              type="number"
+              {...register("fees", {
+                required: "Fees required",
+                min: { value: 0, message: "Must be non-negative" },
+              })}
+              error={errors.fees}
+            />
+          </>
+        )}
+
             <button className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition">
               Sign up with Email
             </button>
+            
           </div>
           </form>
 
@@ -143,3 +192,5 @@ function Signup() {
 }
 
 export default Signup
+
+
