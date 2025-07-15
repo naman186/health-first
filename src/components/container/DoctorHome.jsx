@@ -5,13 +5,13 @@ const DoctorHome = () => {
   const [currentTime] = useState(new Date());
 
   const appointments = [
-    { id: 1, name: 'Riya Sharma', time: '11:00 AM', status: 'Pending', avatar: 'RS' },
+    { id: 1, name: 'Samiksha ', time: '9:00 AM', status: 'Pending', avatar: 'RS' },
     { id: 2, name: 'Aman Mehra', time: '12:00 PM', status: 'Accepted', avatar: 'AM' },
     { id: 3, name: 'Arjun Singh', time: '1:30 PM', status: 'Pending', avatar: 'AS' }
   ];
 
   const recentActivity = [
-    { id: 1, text: 'Appointment with Riya completed', time: '11:35 AM', type: 'completed' },
+    { id: 1, text: 'Appointment with Samiksha completed', time: '11:35 AM', type: 'completed' },
     { id: 2, text: 'Prescription sent to Aman', time: '12:30 PM', type: 'prescription' },
     { id: 3, text: 'New appointment request from Aditya', time: '12:45 PM', type: 'request' }
   ];
@@ -59,7 +59,7 @@ const DoctorHome = () => {
           </div>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <h3 className="text-xl font-bold">Riya Sharma</h3>
+              <h3 className="text-xl font-bold">Samiksha</h3>
               <p className="text-blue-100">11:00 AM - 11:30 AM</p>
               <p className="text-blue-100 text-sm">Next: Aman Mehra at 12:00 PM</p>
             </div>

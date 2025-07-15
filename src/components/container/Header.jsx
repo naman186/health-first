@@ -13,26 +13,51 @@ function Header() {
 
     const dispatch = useDispatch();
     const authStatus = useSelector((state) => state.auth.status);
+    const user = useSelector((state) => state.auth.user)
+    const role = useSelector((state) => state.auth.role);
     
     
     const navItems = [
         {   name: 'Home', 
             path: '/',
             active: true,
+            roles: ['user']
         },
         { name: 'Doctors',
          path: '/Search',
          active: authStatus,
+         roles: ['user']
         },
         { name: 'Appointments',
          path: '/BookAppointment',
          active: authStatus,
+         roles: ['user']
         },
-        { name: 'Doctor Home',
+        { name: 'Messages',
          path: '/DoctorHome',
          active: authStatus,
+         roles: ['user']
         },
+        { name: 'Dr.Home',
+         path: '/DoctorHome',
+         active: authStatus,
+         roles: ['doctor']
+        },
+        { name: 'Patients',
+         path: '/Patients',
+         active: authStatus,
+         roles: ['doctor']
+        },
+        { name: 'Appointments',
+         path: '/Appointments',
+         active: authStatus,
+         roles: ['doctor']
+        },
+
     ];
+
+      const currentRole = authStatus ? role : 'guest';
+
 
   return (
     <>
@@ -52,8 +77,8 @@ function Header() {
             <div className="top-r flex gap-8 ">
                 <ul className="flex items-center gap-8 font-semibold text-sm">
                     <div className="hidden sm:flex items-center gap-8">
-                    {navItems.map((item, index) => (
-                            item.active ?(<li key={index}>
+                    {navItems.filter((item) => item.roles.includes(currentRole)).map((item, index) => (
+                            item.active ?(<li key={index} className='hover:underline'>
                                 <Link to={item.path}>{item.name}</Link>
                             </li>
                         ) : null ))}</div>

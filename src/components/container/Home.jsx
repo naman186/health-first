@@ -3,6 +3,8 @@ import dr from "/assets/dr-img.svg"
 import clinic1 from "/assets/clinic-1.png"
 import clinic2 from "/assets/clinic-2.png"
 import clinic3 from "/assets/clinic-3.png"
+import DrList from '../hooks/DrList'
+import Appointments from './Appointments'
 
 console.log("home page is loaded");
 
@@ -24,7 +26,7 @@ function Home() {
                     className=' w-full ml-2 outline-none'
                 />
             </div>
-            <button className=" text-black font-semibold px-6 py-2 rounded-lg bg-blue-500" style={{ backgroundColor: "var(--button-color)" }}>
+            <button className="text-white font-semibold px-6 py-2 rounded-lg bg-blue-500">
               Book an appointment
             </button>
             <h4 className="heading text-3xl font-semibold">Your upcoming appointments</h4>
@@ -45,6 +47,20 @@ function Home() {
                     <img src={dr} alt="" />
                 </div>
             </div>
+
+            {/*   return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {doctors.map((doc) => (
+        <div key={doc.$id} className="bg-white shadow p-4 rounded-md">
+          <h3 className="text-lg font-semibold">Dr. {doc.name}</h3>
+          <p className="text-sm text-gray-600">{doc.specialization}</p>
+          <p className="text-sm text-gray-500">Fees: ₹{doc.fees}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+ */}
             <h4 className="font-semibold text-3xl">Clinics near you</h4>
             <div className="clinics">
                 <ul className="flex gap-5">
@@ -78,39 +94,9 @@ function Home() {
                     </li>
                 </ul>
             </div>
-            <div className="Specialists flex flex-col gap-5">
-                <h4 className="text-3xl font-semibold">Specialists</h4>
-                <ul className="flex gap-5">
-                    <li>
-                        <div className="mb-4 h-64 w-64 border-2 border-transparent rounded-2xl bg-cover overflow-hidden">
-                        <img src="https://www.bombayhospitalindore.com/resources/assets/images/team/dr-abhinav-anand.jpg" alt=""/> 
-                        </div>
-                        <p>Gokuldham Clinic</p>
-                        <p>Open until 8 PM</p>
-                    </li>
-                    <li>
-                        <div className="mb-4 h-64 w-64 border-2 border-transparent rounded-2xl bg-cover overflow-hidden">
-                        <img src="https://kdahweb-static.kokilabenhospital.com/kdah-2019/product/1729752538.jpg" alt="" /> 
-                        </div>
-                        <p>Aurobindo Hospital</p>
-                        <p>Open until 12 PM</p>
-                    </li>
-                    <li>
-                        <div className="mb-4 h-64 w-64 border-2 border-transparent rounded-2xl bg-cover overflow-hidden">
-                        <img src="https://www.bombayhospitalindore.com/resources/assets/images/team/dr-ankit-gupta.jpg" alt="" />
-                        </div>
-                        <p>M.Y Hospital</p>
-                        <p>Open until 10 PM</p>
-                    </li>
-                    <li>
-                        <div className="mb-4 h-64 w-64 border-2 border-transparent rounded-2xl bg-cover overflow-hidden">
-                        <img src="https://www.bombayhospitalindore.com/resources/assets/images/team/mrs-aashna-jain.jpg" alt="" />
-                        </div>
-                        <p>JholaChhap Clinic</p>
-                        <p>Open until 6 PM</p>
-                    </li>
-                </ul>
-
+            
+            <div className="Specialists w-full">
+                <Appointments/>
             </div>
 
         </div>

@@ -75,18 +75,35 @@ export class AuthService{
     }
 
     async getCurrentUser() {
-        try {
-            console.log("it is used")
-            const user = await this.account.get();
-            return user;
-        }
-        catch (error) {
-            console.error("Error fetching current user:", error);
-        }
-        return null; // Return null if no user is logged in
-    }
+    try {
+    const account = await this.account.get();
 
-    
+    // Try admin first
+    try {
+      const adminDoc = await this.database.getDocument(DATABASE_ID, ADMIN_COLLECTION_ID, account.$id);
+      return { ...account, role: "admin", ...adminDoc };
+    } catch {}
+
+    // Then try doctor
+    try {
+      const doctorDoc = await this.database.getDocument(DATABASE_ID, DOCTOR_COLLECTION_ID, account.$id);
+      return { ...account, role: "doctor", ...doctorDoc };
+    } catch {}
+
+    // Then try user
+    try {
+      const userDoc = await this.database.getDocument(DATABASE_ID, USER_COLLECTION_ID, account.$id);
+      return { ...account, role: "user", ...userDoc };
+    } catch {}
+
+    // If no document found in any collection
+    return { ...account, role: null };
+    } catch (err) {
+    console.error("Error fetching current user:", err);
+    return null;
+    }
+}
+
     async createUserDocument({name,email}){
         try {
             const currentUser = await this.account.get();
@@ -203,6 +220,8 @@ export class AuthService{
                 console.log("Error updating doctor profile", error);
         }
     }
+
+    
 
 
 }

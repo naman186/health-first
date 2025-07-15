@@ -15,12 +15,12 @@ function App() {
     authService.getCurrentUser()
       .then((user) => {
         if (user) {
-          dispatch(login({user}));
+          dispatch(login(user));
       }
       else{
           dispatch(logout());
         }
-      }).finally(() => setLoading(false));
+      }).finally(() =>{ setLoading(false); });
       
   }, [])
   return (

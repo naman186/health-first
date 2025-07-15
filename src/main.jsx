@@ -7,6 +7,9 @@ import { createBrowserRouter } from 'react-router-dom'
 import { RouterProvider } from 'react-router-dom'
 import {App, Home, Login, Signup, BookAppointment, SearchPage, Profile, DoctorHome} from './components/index.js'
 import AuthLayout from './components/AuthLayout.jsx'
+import Patients from './components/container/Patients.jsx'
+import Appointments from './components/container/Appointments.jsx'
+import CheckoutPage from './components/container/CheckoutPage.jsx'
 
 
 const router = createBrowserRouter([
@@ -17,7 +20,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Home />,
+        element: (
+          <AuthLayout authentication={false}>
+            <Home />
+          </AuthLayout>
+        ),
       },
       {
         path: '/login',
@@ -36,9 +43,9 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/BookAppointment',
+        path: '/BookAppointment/:id',
         element: (
-          <AuthLayout authentication={false}>
+          <AuthLayout authentication={true}>
             <BookAppointment />
           </AuthLayout>
         ),
@@ -46,7 +53,7 @@ const router = createBrowserRouter([
       {
         path:"/Search",
         element: (
-          <AuthLayout authentication={false}>
+          <AuthLayout authentication={true}>
             <SearchPage/>
           </AuthLayout>
         )
@@ -54,7 +61,7 @@ const router = createBrowserRouter([
       {
         path:"/UserProfile",
         element: (
-          <AuthLayout authentication={false}>
+          <AuthLayout authentication={true}>
             <Profile/>
           </AuthLayout>
         )
@@ -62,11 +69,36 @@ const router = createBrowserRouter([
       {
         path:"/doctorhome",
         element:(
-          <AuthLayout authentication={false}>
+          <AuthLayout authentication={true} allowedRoles={['doctor']}>
             <DoctorHome/>
           </AuthLayout>
         )
-      }
+      },
+      {
+        path:"/Patients",
+        element:(
+          <AuthLayout authentication={true} allowedRoles={['doctor']}>
+            <Patients/>
+          </AuthLayout>
+        )
+      },
+      {
+        path:"/Appointments",
+        element:(
+          <AuthLayout authentication={true} allowedRoles={['doctor']}>
+            <Appointments/>
+          </AuthLayout>
+        )
+      },
+      {
+        path:"/CheckoutPage/:id",
+        element:(
+        <AuthLayout authentication={true} allowedRoles={['user']}>
+          <CheckoutPage/>
+        </AuthLayout>
+        )
+      },
+      
     ]
   }
 ])
